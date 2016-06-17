@@ -20,6 +20,7 @@ body{
 
    margin-top:40px;
    color:white;
+
 }
 
 #break-length{
@@ -62,4 +63,33 @@ button{
   outline: none;
   border: 0;
   background: transparent;
+}
+
+.timer{
+
+   margin-top:50px;
+   background-color:#333333;
+   color:white;
+
+
+}
+
+#data{
+
+  border-radius:100px;
+  border:2px solid #99CC00;
+  width:220px;
+
+  padding-top:5px;
+  padding-bottom:
+
+
+}
+
+
+
+#time{
+
+   margin-top:44px;
+
 }
