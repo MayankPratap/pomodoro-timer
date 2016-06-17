@@ -1,18 +1,63 @@
 html{
 
   height:100%;
-
 }
 
 body{
 
    height:100%;
-   background-attachment: fixed;
-   background-color: #162234;
+   background-attachment:fixed;
+   background-color:#333333;
 }
 
 .header{
 
    font-family: 'Pacifico', cursive;
    color:white;
+}
+
+.settings{
+
+   margin-top:40px;
+   color:white;
+}
+
+#break-length{
+
+   width:60px;
+   background-color:#333333;
+   color:white;
+   margin-left:10px;
+   margin-right:10px;
+   font-size:40px;
+
+}
+
+#session-length{
+
+   width:60px;
+   background-color:#333333;
+   color:white;
+   margin-left:10px;
+   margin-right:10px;
+   font-size:40px;
+}
+
+.minus{
+
+   font-size:45px;
+
+}
+
+.plus{
+
+   font-size:45px;
+
+}
+
+button{
+  -webkit-appearance: none;
+  outline: none;
+  border: 0;
+  background: transparent;
 }
