@@ -55,6 +55,8 @@ body{
 
 }
 
+/** This part removes the original button style of button ***/
+
 button{
   -webkit-appearance: none;
   outline: none;
