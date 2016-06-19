@@ -1,37 +1,73 @@
 $(document).ready(function(){
 
-
    var status=0; // Represents that timer is off now. Click on circle/ellipse to turn on//
-
    $('#break-length').val("5");
-   $('#session-length').val("3");
-   $('#time').text("3");
+   $('#session-length').val("130");
+   updateTime();
 
-   $('#break-minus').click(function(){
-      console.log($('#break-length').val());
-      var newTime=parseInt($('#break-length').val())-1;
-      if(newTime<0)
-        newTime=0;
+   function updateTime(){
+    // function to update time
+     time=parseInt($('#session-length').val());
+     time=time*60;
+     var showTime="";
+     var h=Math.floor(time/3600);
+     var m=Math.floor(time/60-h*60);
+     var s=Math.floor(time%60);
+     if(h!=0){
+         if(h<10)
+           showTime+="0"+h.toString();
+         else
+           showTime+=h.toString();
+     }
+     else
+       showTime+="00";
+     if(m!=0){
+        showTime+=":";
+        if(m<10)
+          showTime+="0"+m.toString();
+       else
+          showTime+=m.toString();
+     }
+     else
+       showTime+=":00";
+     if(s!=0){
+        showTime+=":";
+        if(s<10)
+          showTime+="0"+s.toString();
+       else
+          showTime+=s.toString();
+     }
+      else
+       showTime+=":00";
 
-      $('#break-length').val(newTime.toString());
+      $('#time').text(showTime);
 
-   });
+   }
 
-   $('#break-plus').click(function(){
+    $('#break-minus').click(function(){
+       console.log($('#break-length').val());
+       var newTime=parseInt($('#break-length').val())-1;
+       if(newTime<0)  // No body can reduce time beyond zero
+          newTime=0;
 
-      var newTime=parseInt($('#break-length').val())+1;
-      if(newTime>1440)
-        newTime=1440;
-      $('#break-length').val(newTime.toString());
+       $('#break-length').val(newTime.toString());
+    });
 
-   });
+    $('#break-plus').click(function(){
 
-   $('#session-minus').click(function(){
+       var newTime=parseInt($('#break-length').val())+1;
+       if(newTime>1440) // You cannot increase time more than one day.
+         newTime=1440;
+       $('#break-length').val(newTime.toString());
+    });
 
-      var newTime=parseInt($('#session-length').val())-1;
-      if(newTime<0)
-        newTime=0;
-      $('#session-length').val(newTime.toString());
+    $('#session-minus').click(function(){
+
+       var newTime=parseInt($('#session-length').val())-1;
+       if(newTime<0)
+         newTime=0;
+       $('#session-length').val(newTime.toString());
+       updateTime();  // update session time in timer
 
    });
 
@@ -41,7 +77,7 @@ $(document).ready(function(){
       if(newTime>1440)  // Not more than 24 hours :P
         newTime=1440;
       $('#session-length').val(newTime.toString());
-
+      updateTime();  // Update session time in timer.
    });
 
    $('#data').click(function(){
@@ -60,11 +96,10 @@ $(document).ready(function(){
          function sessionStart(){
             time-=1;
             if(time===0){
-                clearInterval(t);
                 tryTakingBreak();
             }
 
-            $('#type').val("Session");
+            $('#type').text("Session");
 
             var showTime="";
 
@@ -78,25 +113,31 @@ $(document).ready(function(){
                 else
                    showTime+=h.toString();
             }
+            else
+              showTime+="00";
             if(m!=0){
-                if(h!=0)
-                  showTime+=":";
+
+                showTime+=":";
                 if(m<10)
                    showTime+="0"+m.toString();
                 else
                    showTime+=m.toString();
             }
+            else{
+
+               showTime+=":00";
+            }
             if(s!=0){
-                if(m!=0)
-                  showTime+=":";
+
+                showTime+=":";
                 if(s<10)
                    showTime+="0"+s.toString();
                 else
                    showTime+=s.toString();
             }
-            else
-              showTime+=":00";
-
+            else{
+             showTime+=":00";
+            }
             console.log(showTime);
             console.log($('#time').text());
             $('#time').text(showTime);
@@ -105,11 +146,9 @@ $(document).ready(function(){
          }
          var t=setInterval(sessionStart,1000);
 
-
          function tryTakingBreak(){
-
            console.log("Break Time");
-
+           clearInterval(t);
          }
 
       }
