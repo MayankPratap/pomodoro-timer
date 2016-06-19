@@ -97,12 +97,19 @@ $(document).ready(function(){
 
        if(status===0)
          status=1;
-       else if(status==1)
+       else if(status==1){
          status=0;
+         clearInterval(t);
+       }
        if(status==1){
 
-         time=parseInt($('#session-length').val());
-         time=time*60;
+         var str=$('#time').text();
+         var h=parseInt(str.substr(0,2));
+         var m=parseInt(str.substr(3,2));
+         var s=parseInt(str.substr(6,2));
+
+         time=h*3600+m*60+s;
+
          function sessionStart(){
             time=time-1;
             console.log(time);
@@ -116,7 +123,6 @@ $(document).ready(function(){
             console.log("Break Time");
             clearInterval(t);
          }
-
        }
 
    });
