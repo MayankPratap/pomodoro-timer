@@ -117,9 +117,10 @@ $(document).ready(function(){
          function sessionStart(){
                time=time-1;
                console.log(time);
-               if(time===0)
+               if(time===0){
+                 $('#type').text("Break");
                  tryTakingBreak();
-               $('#type').text("Session");
+               }
                updateTime(time);
          }
 
@@ -147,11 +148,11 @@ $(document).ready(function(){
 
          function breakStart(){
 
-            $('#type').text("Break");
+
             time-=1;
             console.log(time);
             if(time===0){
-
+               $('#type').text("Session");
               backToSession();
             }
             updateTime(time);
@@ -186,12 +187,13 @@ $(document).ready(function(){
 
           if(isBreakTime===0){
             isSessionTime=1;
+            $('#type').text("Session");
             backToSession();
 
           }
 
           else{
-
+             $('#type').text("Break");
              tryTakingBreak();
 
           }
