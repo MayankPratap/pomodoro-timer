@@ -12,3 +12,5 @@ A browser-side timer based on Pomodoro Technique(https://en.wikipedia.org/wiki/P
  
  - Placing elements side by side using bootstrap classes class="row" and class="col-xs*".
  - Centering elements or element using bootstrap classes class="row" and class="col-xs*".
+ - How to use setInterval to repeat a javaScript function after some interval.
+ - How to stop repeating of javaScript function call using clearInterval.
