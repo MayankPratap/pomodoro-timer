@@ -2,9 +2,11 @@ $(document).ready(function(){
 
    var status=0; // Represents that timer is off now. Click on circle/ellipse to turn on//
    var isFirstTime=0; // After page reload
-   var timer;
+   var isBreakTime=0;  //  Checks whether session or break is going on
+   var isSessionTime=0;  // Checks whether session is running or not.
+   var stimer,btimer;
    $('#break-length').val("5");
-   $('#session-length').val("130");
+   $('#session-length').val("25");
    var time;
    time=parseInt($('#session-length').val());
    time=time*60;
@@ -95,45 +97,107 @@ $(document).ready(function(){
       }
    });
 
-
-
    $('#data').click(function(){
 
 
        if(status===0){
-         status=1;
-         if(isFirstTime===0)
-            isFirstTime=1;
-        
+          status=1;
        }
        else if(status==1){
          status=0;
-         timer.stop();
+         if(isBreakTime===0)
+            stimer.stop();
+         else
+            btimer.stop();
+
        }
        if(status==1){
 
-          var str=$('#time').text();
-          var h=parseInt(str.substr(0,2));
-          var m=parseInt(str.substr(3,2));
-          var s=parseInt(str.substr(6,2));
-          time=h*3600+m*60+s;
 
-          function sessionStart(){
+         function sessionStart(){
+               time=time-1;
+               console.log(time);
+               if(time===0)
+                 tryTakingBreak();
+               $('#type').text("Session");
+               updateTime(time);
+         }
 
-                time=time-1;
-                console.log(time);
-                if(time===0)
-                  tryTakingBreak();
-                $('#type').text("Session");
-                updateTime(time);
+         function tryTakingBreak(){
+            console.log("Break Time");
+            if(isSessionTime==1){
+              stimer.stop();      // Stop session timer
+              isBreakTime=1;   // Break time starts
+              isSessionTime=0;  // Session time ends
+              time=parseInt($('#break-length').val());
+              time=time*60;
+              btimer=$.timer(breakStart,1000,true);
+            }
+            else{
+
+              var str=$('#time').text();
+              var h=parseInt(str.substr(0,2));
+              var m=parseInt(str.substr(3,2));
+              var s=parseInt(str.substr(6,2));
+              time=h*3600+m*60+s;
+              btimer=$.timer(breakStart,1000,true);
+            }
+
+         }
+
+         function breakStart(){
+
+            $('#type').text("Break");
+            time-=1;
+            console.log(time);
+            if(time===0){
+
+              backToSession();
+            }
+            updateTime(time);
+         }
+
+
+         function backToSession(){
+            console.log("Session Time");
+            if(isBreakTime==1){   //  If break time is running then stop
+
+               btimer.stop();
+               isBreakTime=0;  // Break time ends
+               isSessionTime=1;  // Session time starts
+               time=parseInt($('#session-length').val());
+               time=time*60;
+               stimer=$.timer(sessionStart,1000,true);
+
+            }
+            else{
+
+               var str=$('#time').text();
+               var h=parseInt(str.substr(0,2));
+               var m=parseInt(str.substr(3,2));
+               var s=parseInt(str.substr(6,2));
+               time=h*3600+m*60+s;
+               stimer=$.timer(sessionStart,1000,true);
+
+
+            }
+         }
+
+
+          if(isBreakTime===0){
+            isSessionTime=1;
+            backToSession();
 
           }
-          timer=$.timer(sessionStart,1000,true);
 
-          function tryTakingBreak(){
-             console.log("Break Time");
-             timer.stop();
+          else{
+
+             tryTakingBreak();
+
           }
+
+
+
        }
 
    });
