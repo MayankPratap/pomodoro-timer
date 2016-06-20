@@ -1,6 +1,8 @@
 $(document).ready(function(){
 
    var status=0; // Represents that timer is off now. Click on circle/ellipse to turn on//
+   var isFirstTime=0; // After page reload
+   var timer;
    $('#break-length').val("5");
    $('#session-length').val("130");
    var time;
@@ -93,36 +95,45 @@ $(document).ready(function(){
       }
    });
 
+
+
    $('#data').click(function(){
 
-       if(status===0)
+
+       if(status===0){
          status=1;
+         if(isFirstTime===0)
+            isFirstTime=1;
+        
+       }
        else if(status==1){
          status=0;
-         clearInterval(t);
+         timer.stop();
        }
        if(status==1){
 
-         var str=$('#time').text();
-         var h=parseInt(str.substr(0,2));
-         var m=parseInt(str.substr(3,2));
-         var s=parseInt(str.substr(6,2));
+          var str=$('#time').text();
+          var h=parseInt(str.substr(0,2));
+          var m=parseInt(str.substr(3,2));
+          var s=parseInt(str.substr(6,2));
+          time=h*3600+m*60+s;
 
-         time=h*3600+m*60+s;
+          function sessionStart(){
 
-         function sessionStart(){
-            time=time-1;
-            console.log(time);
-            if(time===0)
-              tryTakingBreak();
-            $('#type').text("Session");
-            updateTime(time);
-         }
-         var t=setInterval(sessionStart,1000);
-         function tryTakingBreak(){
-            console.log("Break Time");
-            clearInterval(t);
-         }
+                time=time-1;
+                console.log(time);
+                if(time===0)
+                  tryTakingBreak();
+                $('#type').text("Session");
+                updateTime(time);
+
+          }
+          timer=$.timer(sessionStart,1000,true);
+
+          function tryTakingBreak(){
+             console.log("Break Time");
+             timer.stop();
+          }
        }
 
    });
