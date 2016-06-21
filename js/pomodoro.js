@@ -63,7 +63,7 @@ $(document).ready(function(){
 
          $('#break-length').val(newTime.toString());
         newTime*=60;
-         if(isSessionTime===0)
+         if(isBreakTime==1)
            updateTime(newTime);
       }
     });
@@ -76,7 +76,7 @@ $(document).ready(function(){
 
           $('#break-length').val(newTime.toString());
           newTime*=60;
-          if(isSessionTime===0)
+          if(isBreakTime==1)
             updateTime(newTime);
        }
     });
