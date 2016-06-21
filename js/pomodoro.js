@@ -52,6 +52,16 @@ $(document).ready(function(){
       $('#time').text(showTime);
    }
 
+   function spawnNotification(theBody,theIcon,theTitle){
+
+       var options={
+
+          body: theBody
+       }
+       var n=new Notification(theTitle,options);
+   }
+
+
    /***** Button Click Events *****/
 
     $('#break-minus').click(function(){
@@ -221,7 +231,10 @@ $(document).ready(function(){
              else if(Notification.permission==="granted"){
 
                 // If its okay lets create a notification
-                var notification=new Notification("Session Over, Lets Take A Break");
+                theBody="Session Over, Lets Take A Break";
+                theIcon="";
+                theTitle="Pomodoro Timer";
+                spawnNotification(theBody,theIcon,theTitle);
 
 
              }
@@ -232,13 +245,14 @@ $(document).ready(function(){
                  Notification.requestPermission(function(permission){
 
                     // If user accepts ,let's create a notification
-                    if(permission==="granted")
-                      var notification=new Notification("Session Over, Lets Take A Break");
-
-
+                    if(permission==="granted"){
+                       theBody="Session Over, Lets Take A Break";
+                       theIcon="";
+                       theTitle="Pomodoro Timer";
+                       spawnNotification(theBody,theIcon,theTitle);
+                    }
 
                  });
-
 
 
              }
@@ -258,7 +272,10 @@ $(document).ready(function(){
              else if(Notification.permission==="granted"){
 
                 // If its okay lets create a notification
-                var notification=new Notification("Session Starts, try to be productive!");
+                theBody="Session Starts, try to be productive!";
+                theIcon="";
+                theTitle="Pomodoro Timer";
+                spawnNotification(theBody,theIcon,theTitle);
 
 
              }
@@ -269,10 +286,14 @@ $(document).ready(function(){
                  Notification.requestPermission(function(permission){
 
                     // If user accepts ,let's create a notification
-                    if(permission==="granted")
-                      var notification=new Notification("Session Starts, try to be productive!");
+                    if(permission==="granted"){
 
+                      theBody="Session Starts, try to be productive!";
+                      theIcon=""
+                      theTitle="Pomodoro Timer";
+                      spawnNotification(theBody,theIcon,theTitle);
 
+                    }
 
                  });
 
