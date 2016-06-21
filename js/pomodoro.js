@@ -128,6 +128,7 @@ $(document).ready(function(){
                time=time-1;
                console.log(time);
                if(time===0){
+                 notifySessionOver();
                  $('#type').text("Break");
                  tryTakingBreak();
                }
@@ -162,6 +163,7 @@ $(document).ready(function(){
             time-=1;
             console.log(time);
             if(time===0){
+               notifySessionStart();
                $('#type').text("Session");
               backToSession();
             }
@@ -205,6 +207,81 @@ $(document).ready(function(){
           else{
              $('#type').text("Break");
              tryTakingBreak();
+
+          }
+
+          function notifySessionOver(){
+
+             if(!("Notification" in window)){
+
+                alert("This browser does not support desktop notification");
+
+             }
+
+             else if(Notification.permission==="granted"){
+
+                // If its okay lets create a notification
+                var notification=new Notification("Session Over, Lets Take A Break");
+
+
+             }
+             else{
+
+                 // Otherwise ask the user for permission
+
+                 Notification.requestPermission(function(permission){
+
+                    // If user accepts ,let's create a notification
+                    if(permission==="granted")
+                      var notification=new Notification("Session Over, Lets Take A Break");
+
+
+
+                 });
+
+
+
+             }
+
+
+
+
+          }
+          function notifySessionStart(){
+
+             if(!("Notification" in window)){
+
+                alert("This browser does not support desktop notification");
+
+             }
+
+             else if(Notification.permission==="granted"){
+
+                // If its okay lets create a notification
+                var notification=new Notification("Session Starts, try to be productive!");
+
+
+             }
+             else{
+
+                 // Otherwise ask the user for permission
+
+                 Notification.requestPermission(function(permission){
+
+                    // If user accepts ,let's create a notification
+                    if(permission==="granted")
+                      var notification=new Notification("Session Starts, try to be productive!");
+
+
+
+                 });
+
+
+
+             }
+
+
+
 
           }
 
