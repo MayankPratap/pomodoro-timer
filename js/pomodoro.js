@@ -81,7 +81,8 @@ $(document).ready(function(){
          $('#session-length').val(newTime.toString());
          newTime*=60;  // Convert newTime to seconds before sending to updateTime function
          console.log(newTime);
-         updateTime(newTime);
+         if(isBreakTime===0)
+           updateTime(newTime);
       }
    });
 
@@ -93,7 +94,8 @@ $(document).ready(function(){
          $('#session-length').val(newTime.toString());
          newTime*=60;  // Convert newTime to seconds before sending to updateTime function
          console.log(newTime);
-         updateTime(newTime);  // Update session time in timer.
+         if(isBreakTime===0)   // If it is not break time then you can change time of timer by changing session time
+           updateTime(newTime);  // Update session time in timer.
       }
    });
 
