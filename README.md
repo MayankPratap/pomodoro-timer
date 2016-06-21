@@ -11,9 +11,12 @@ A browser-side timer based on Pomodoro Technique(https://en.wikipedia.org/wiki/P
 # Features to be added :- 
 
  - Sound Notification when session or break time ends.
+ - Option to store pomodoros for a day to keep track of productive time in a day.
+ - Option to clear pomodoros after a day.
 
 # Things learnt :-
  
  - Placing elements side by side using bootstrap classes class="row" and class="col-xs*".
  - Centering elements or element using bootstrap classes class="row" and class="col-xs*".
  - Using timer library :- (https://github.com/jchavannes/jquery-timer) for running a function continuously after some time.
+
