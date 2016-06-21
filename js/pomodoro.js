@@ -60,7 +60,11 @@ $(document).ready(function(){
          var newTime=parseInt($('#break-length').val())-1;
          if(newTime<0)  // No body can reduce time beyond zero
            newTime=0;
+
          $('#break-length').val(newTime.toString());
+        newTime*=60;
+         if(isSessionTime===0)
+           updateTime(newTime);
       }
     });
 
@@ -69,7 +73,11 @@ $(document).ready(function(){
           var newTime=parseInt($('#break-length').val())+1;
           if(newTime>1440) // You cannot increase time more than one day.
             newTime=1440;
+
           $('#break-length').val(newTime.toString());
+          newTime*=60;
+          if(isSessionTime===0)
+            updateTime(newTime);
        }
     });
 
